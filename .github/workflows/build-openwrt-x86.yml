@@ -1,0 +1,46 @@
+name: Build OpenWrt x86 Firmware
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Build Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential libncurses5-dev zlib1g-dev gawk git gettext unzip libssl-dev xsltproc
+
+      - name: Update and Install Feeds
+        run: |
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: Configure Build for x86
+        run: |
+          # 如果仓库中有预设的 x86 配置文件，则复制到 .config
+          if [ -f x86.config ]; then
+            cp x86.config .config
+          else
+            echo "请确保仓库中存在 x86.config 配置文件，或者手动配置 x86 目标"
+            exit 1
+          fi
+
+      - name: Compile OpenWrt Firmware
+        run: |
+          make -j$(nproc)
+
+      - name: Upload Firmware Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: openwrt-x86-firmware
+          # 固件生成在 bin/targets/x86/ 目录下，根据具体配置可能是 bin/targets/x86/x86 或 bin/targets/x86/x86_64
+          path: bin/targets/x86/
