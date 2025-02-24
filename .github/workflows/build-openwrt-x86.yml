@@ -2,16 +2,16 @@ name: Build OpenWrt x86
 
 on:
   push:
-    branches: [ main ]  # 触发编译的分支
-  workflow_dispatch:    # 允许手动触发
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # 拉取仓库代码
+      uses: actions/checkout@v4  # 更新到最新版本
 
     - name: Set up environment
       run: |
@@ -20,14 +20,10 @@ jobs:
 
     - name: Set up .config
       run: |
-        # 如果 .config 文件已经存在，直接使用
         if [ -f .config ]; then
-          echo ".config file found, using existing configuration."
+          echo "Using existing .config."
         else
-          # 如果没有 .config 文件，生成默认配置
-          echo "Generating default .config..."
           make defconfig
-          # 添加自定义配置
           echo "CONFIG_TARGET_x86=y" >> .config
           echo "CONFIG_TARGET_x86_64=y" >> .config
           echo "CONFIG_TARGET_x86_generic=y" >> .config
@@ -50,7 +46,7 @@ jobs:
         make -j$(nproc) || make -j1 V=s
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # 升级到 v4
       with:
         name: openwrt-x86-firmware
-        path: bin/targets/x86/64/
+        path: bin/targets/x86/64/*
