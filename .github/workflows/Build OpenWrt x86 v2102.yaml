@@ -56,7 +56,8 @@ jobs:
         CONFIG_PACKAGE_cifsmount=y
         CONFIG_PACKAGE_python3=y
         CONFIG_PACKAGE_docker=y
-        CONFIG_PACKAGE_dockerd=y
+        CONFIG_PACKAGE_dockerd=y      
+        CONFIG_PACKAGE_openssh-sftp-server=y
         EOF
         make defconfig
 
