@@ -34,7 +34,7 @@ jobs:
         CONFIG_TARGET_x86=y
         CONFIG_TARGET_x86_64=y
         CONFIG_TARGET_ROOTFS_EXT4FS=y
-        CONFIG_TARGET_ROOTFS_PARTSIZE=500
+        CONFIG_TARGET_ROOTFS_PARTSIZE=800
         CONFIG_GRUB_IMAGES=y
         CONFIG_GRUB_EFI_IMAGES=y
         CONFIG_GRUB_BOOTOPTS="rootfstype=ext4 rootwait"
@@ -56,8 +56,14 @@ jobs:
         CONFIG_PACKAGE_cifsmount=y
         CONFIG_PACKAGE_python3=y
         CONFIG_PACKAGE_docker=y
-        CONFIG_PACKAGE_dockerd=y      
+        CONFIG_PACKAGE_dockerd=y
         CONFIG_PACKAGE_openssh-sftp-server=y
+        CONFIG_PACKAGE_lrzsz=y
+        CONFIG_PACKAGE_nfs-utils=y
+        CONFIG_PACKAGE_kmod-fs-nfs-common=y
+        CONFIG_PACKAGE_kmod-fs-nfs-v3=y
+        CONFIG_PACKAGE_kmod-fs-nfs-v4=y
+        CONFIG_PACKAGE_kmod-fs-nfs=y
         EOF
         make defconfig
 
