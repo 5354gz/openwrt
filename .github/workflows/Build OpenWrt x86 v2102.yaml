@@ -1,4 +1,4 @@
-name: Build OpenWrt x86 20250227
+name: Build OpenWrt x86 v210207
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     - name: Checkout your OpenWrt fork
       uses: actions/checkout@v4
       with:
-        ref: v21.02.7  # ✅ 切换到 OpenWrt v21.02.7 Tag
+        ref: v21.02.7  
 
     - name: Install dependencies
       run: |
@@ -34,7 +34,7 @@ jobs:
         CONFIG_TARGET_x86=y
         CONFIG_TARGET_x86_64=y
         CONFIG_TARGET_ROOTFS_EXT4FS=y
-        CONFIG_TARGET_ROOTFS_PARTSIZE=300
+        CONFIG_TARGET_ROOTFS_PARTSIZE=500
         CONFIG_GRUB_IMAGES=y
         CONFIG_GRUB_EFI_IMAGES=y
         CONFIG_GRUB_BOOTOPTS="rootfstype=ext4 rootwait"
@@ -52,6 +52,11 @@ jobs:
         CONFIG_PACKAGE_iptables=y
         CONFIG_PACKAGE_ipset=y
         CONFIG_PACKAGE_tcpdump=y
+        CONFIG_PACKAGE_kmod-fs-cifs=y
+        CONFIG_PACKAGE_cifsmount=y
+        CONFIG_PACKAGE_python3=y
+        CONFIG_PACKAGE_docker=y
+        CONFIG_PACKAGE_dockerd=y
         EOF
         make defconfig
 
