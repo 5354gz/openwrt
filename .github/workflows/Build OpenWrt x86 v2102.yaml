@@ -63,7 +63,12 @@ jobs:
         CONFIG_PACKAGE_kmod-fs-nfs-v4=y
         CONFIG_PACKAGE_kmod-fs-nfs=y
         CONFIG_PACKAGE_dnsmasq=n      
-        CONFIG_PACKAGE_dnsmasq_full=y      
+        CONFIG_PACKAGE_dnsmasq_full=y
+        CONFIG_PACKAGE_dnsmasq_full_dhcp=y
+        CONFIG_PACKAGE_dnsmasq_full_ipset=y
+        CONFIG_PACKAGE_dnsmasq_full_tftp=y
+        CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+        CONFIG_PACKAGE_kmod-tun=y 
         EOF
         make defconfig
 
